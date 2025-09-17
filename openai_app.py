@@ -268,5 +268,5 @@ if __name__ == '__main__':
     print("API Base URL: http://localhost:5000")
     print("API Documentation: http://localhost:5000")
     print("Health Check: http://localhost:5000/api/health")
-
-    gunicorn openai_app:app --bind=0.0.0.0:$PORT
+    
+    app.run(debug=True, host='0.0.0.0', port=5000)
