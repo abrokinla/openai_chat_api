@@ -14,7 +14,7 @@ load_dotenv()
 
 # Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for frontend integration
+CORS(app)
 
 # Set OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -76,9 +76,16 @@ def get_completion(params, prompt):
         logger.error(f"Unexpected error: {e}")
         raise Exception(f"Unexpected error: {str(e)}")
 
+from flask import Flask, render_template, jsonify
+
+app = Flask(__name__)
+
 @app.route('/')
 def index():
-    """API information endpoint"""
+    return render_template('index.html')
+
+@app.route('/api/info')
+def api_info():
     return jsonify({
         'name': 'OpenAI Chat API',
         'version': '1.0.0',
@@ -100,6 +107,7 @@ def index():
             }
         }
     })
+
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
